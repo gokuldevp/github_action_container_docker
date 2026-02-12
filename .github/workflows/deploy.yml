@@ -11,6 +11,9 @@ jobs:
   test:
     environment: testing
     runs-on: ubuntu-latest
+    container: # runs the job in a container, which is ideal for testing and deployment
+      image: node:18 # use the official Node.js image from Docker Hub
+      # env: # set environment variables for the container, which can be used in the steps below
     env:
       MONGODB_CONNECTION_PROTOCOL: mongodb+srv
       MONGODB_CLUSTER_ADDRESS: cluster0.ntrwp.mongodb.net
