@@ -26,8 +26,23 @@ jobs:
         env: # set environment variables for the MongoDB service, which can be used in the application
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: examplepassword
-        ports:
-          - 27017:27017 # expose the default MongoDB port to the host machine
+
+    # Need to use below if this is not running inside a container, but since we are running inside a container, we can use the service name defined above to connect to MongoDB
+    # env:   
+    #   MONGODB_CONNECTION_PROTOCOL: mongodb # use the appropriate protocol for connecting to MongoDB, such as mongodb or mongodb+srv
+    #   MONGODB_CLUSTER_ADDRESS: 127.0.0.1:127017 # use the service name defined below to connect to the MongoDB service
+    #   MONGODB_USERNAME: root
+    #   MONGODB_PASSWORD: examplepassword
+    #   PORT: 8080
+    # services: # define additional services that the container can use, such as a database
+    #   mongodb:
+    #     image: mongo # use the official MongoDB image from Docker Hub
+    #     env: # set environment variables for the MongoDB service, which can be used in the application
+    #       MONGO_INITDB_ROOT_USERNAME: root
+    #       MONGO_INITDB_ROOT_PASSWORD: examplepassword
+    #     ports:
+    #       - 127017:27017 # map the MongoDB port to the host machine, so that the application can connect to it using localhost
+
     steps:
       - name: Get Code
         uses: actions/checkout@v3
