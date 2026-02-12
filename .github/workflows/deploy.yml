@@ -15,18 +15,17 @@ jobs:
       image: node:18 # use the official Node.js image from Docker Hub
       # env: # set environment variables for the container, which can be used in the steps below
     env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
-      MONGODB_CLUSTER_ADDRESS: cluster0.ntrwp.mongodb.net
-      MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-      MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+      MONGODB_CONNECTION_PROTOCOL: mongodb # use the appropriate protocol for connecting to MongoDB, such as mongodb or mongodb+srv
+      MONGODB_CLUSTER_ADDRESS: mongodb # use the service name defined below to connect to the MongoDB service
+      MONGODB_USERNAME: root
+      MONGODB_PASSWORD: examplepassword
       PORT: 8080
     services: # define additional services that the container can use, such as a database
       mongodb:
-        image: mongo:latest # use the official MongoDB image from Docker Hub
+        image: mongo # use the official MongoDB image from Docker Hub
         env: # set environment variables for the MongoDB service, which can be used in the application
-          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGODB_USERNAME }}
-          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
-          MONGO_INITDB_DATABASE: gha-demo
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: examplepassword
         ports:
           - 27017:27017 # expose the default MongoDB port to the host machine
     steps:
