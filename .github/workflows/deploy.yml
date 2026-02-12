@@ -20,6 +20,15 @@ jobs:
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
       PORT: 8080
+    services: # define additional services that the container can use, such as a database
+      mongodb:
+        image: mongo:latest # use the official MongoDB image from Docker Hub
+        env: # set environment variables for the MongoDB service, which can be used in the application
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+          MONGO_INITDB_DATABASE: gha-demo
+        ports:
+          - 27017:27017 # expose the default MongoDB port to the host machine
     steps:
       - name: Get Code
         uses: actions/checkout@v3
